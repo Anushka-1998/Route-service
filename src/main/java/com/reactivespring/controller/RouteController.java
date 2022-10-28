@@ -15,21 +15,32 @@ public class RouteController {
     @Autowired
     private RouteInfoService routeInfoService;
 
+    /**
+     * This method adds routesInfo to the database
+     * @param routeInfo
+     * @return
+     */
     @PostMapping("/routeInfos")
     @ResponseStatus(HttpStatus.CREATED)
     public Mono<RouteInfo> addRouteInfo(@RequestBody RouteInfo routeInfo)
     {
-        log.info("Recieved route Object :{}", routeInfo);
+        log.info("Request received to add routeInfo :{}", routeInfo);
         return routeInfoService.addRouteInfo(routeInfo);
 
     }
 
 
+    /**
+     * This method gets routesInfo from database based on source and destination
+     * @param source
+     * @param destination
+     * @return
+     */
     @GetMapping("/routeInfos")
     public Mono<RouteInfo> addRouteInfo(@RequestParam("source") String source,
                                         @RequestParam("destination") String destination)
     {
-        log.info("Recieved route list request for {} :{}", source, destination);
+        log.info("Request received to get routeInfo for source : {}, destination : {}", source, destination);
         return routeInfoService.getRouteListForSourceToDestination(source, destination);
 
     }

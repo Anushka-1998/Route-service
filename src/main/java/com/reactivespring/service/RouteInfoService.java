@@ -13,13 +13,24 @@ public class RouteInfoService {
     @Autowired
     private RouteInfoRepository routeInfoRepository;
 
+    /**
+     * This method adds routeInfo data to database
+     * @param routeInfo
+     * @return
+     */
     public Mono<RouteInfo> addRouteInfo(RouteInfo routeInfo) {
-        log.info("Recieved Route Object :{}", routeInfo);
+        log.info("Saves routeInfo Object :{} to the database ", routeInfo);
         return routeInfoRepository.save(routeInfo).log();
     }
 
+    /**
+     * This method gets routeInfo data from database based on source and destination
+     * @param source
+     * @param destination
+     * @return
+     */
     public Mono<RouteInfo> getRouteListForSourceToDestination(String source, String destination) {
-        log.info("At Service :Recieved Route List Request for {}:{}", source, destination);
+        log.info("Get the RouteInfo for source: {} | destination: {}", source, destination);
         return routeInfoRepository.findRouteListBySourceAndDestination(source,destination).log();
     }
 }
